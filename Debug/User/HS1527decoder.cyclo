@@ -1,0 +1,7 @@
+../User/HS1527decoder.cpp:11:1:HS1527Decoder::HS1527Decoder(TIM_HandleTypeDef*, UART_HandleTypeDef*)	1
+../User/HS1527decoder.cpp:17:6:void HS1527Decoder::begin()	2
+../User/HS1527decoder.cpp:27:6:void HS1527Decoder::onDmaHalfComplete()	1
+../User/HS1527decoder.cpp:31:6:void HS1527Decoder::onDmaComplete()	1
+../User/HS1527decoder.cpp:35:17:uint32_t HS1527Decoder::diffTicks(uint32_t, uint32_t)	2
+../User/HS1527decoder.cpp:40:6:void HS1527Decoder::processBuffer(size_t, size_t)	19
+../User/HS1527decoder.cpp:89:6:void HS1527Decoder::reportCode(uint32_t)	1
