@@ -1,0 +1,30 @@
+# Игнорируем папки сборки
+/Debug/
+/Release/
+
+# Временные файлы и логи
+*.log
+*.bak
+*.tmp
+
+# Файлы прошивки
+*.elf
+*.bin
+*.hex
+*.map
+
+# Кэш STM32CubeIDE
+*.launch
+*.settings/
+*.metadata/
+*.user
+
+# Автоматически создаваемые файлы проекта
+*.o
+*.d
+*.list
+*.lst
+*.dep
+
+# Файлы из CubeMX, которые IDE пересоздаёт
+*.ioc-backup
