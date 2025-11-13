@@ -14,7 +14,7 @@
 
 class HS1527Decoder {
 public:
-	HS1527Decoder(){}
+	//HS1527Decoder(){}
     HS1527Decoder(TIM_HandleTypeDef* tim, UART_HandleTypeDef* uart);
 
     void begin();                   // старт таймера + DMA

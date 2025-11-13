@@ -66,7 +66,7 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
-	HS1527Decoder  hs1527decoder;
+	HS1527Decoder  hs1527decoder(&htim2, &huart1);//
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
