@@ -1,5 +1,5 @@
 /*
- * HS1527decoder.h
+ * HS1527Decoder.h
  *
  *  Created on: Nov 10, 2025
  *      Author: erlbriton
@@ -14,6 +14,7 @@
 
 class HS1527Decoder {
 public:
+	HS1527Decoder(){}
     HS1527Decoder(TIM_HandleTypeDef* tim, UART_HandleTypeDef* uart);
 
     void begin();                   // старт таймера + DMA

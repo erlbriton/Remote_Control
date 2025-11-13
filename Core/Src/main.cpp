@@ -25,7 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "HS1527Decoder.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,7 +66,7 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
-
+	HS1527Decoder  hs1527decoder;
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -93,7 +93,7 @@ int main(void)
   MX_TIM2_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  hs1527decoder.begin();
   /* USER CODE END 2 */
 
   /* Infinite loop */

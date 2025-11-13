@@ -8,6 +8,7 @@
 #include "HS1527Decoder.h"
 #include <cstdio>
 
+
 HS1527Decoder::HS1527Decoder(TIM_HandleTypeDef* tim_, UART_HandleTypeDef* uart_)
     : state(IDLE), bufIdx(0), lastProcIdx(0), htim(tim_), huart(uart_)
 {
