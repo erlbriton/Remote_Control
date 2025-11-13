@@ -57,7 +57,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+HS1527Decoder  hs1527decoder(&htim2, &huart1);
 /* USER CODE END 0 */
 
 /**
@@ -66,7 +66,7 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
-	HS1527Decoder  hs1527decoder(&htim2, &huart1);//
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -101,7 +101,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-//Пока оставляем пустым
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -154,7 +154,19 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_TIM_IC_CaptureHalfCpltCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim == &htim2) {
+    	hs1527decoder.onDmaHalfComplete();
+    }
+}
 
+void HAL_TIM_IC_CaptureCpltCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim == &htim2) {
+    	hs1527decoder.onDmaComplete();
+    }
+}
 /* USER CODE END 4 */
 
 /**
@@ -171,8 +183,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
