@@ -154,17 +154,13 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_TIM_IC_CaptureHalfCpltCallback(TIM_HandleTypeDef *htim)
-{
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
     if (htim == &htim2) {
-    	hs1527decoder.onDmaHalfComplete();
-    }
-}
+        // считываем текущее значение таймера
+        uint32_t timestamp = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_4);
 
-void HAL_TIM_IC_CaptureCpltCallback(TIM_HandleTypeDef *htim)
-{
-    if (htim == &htim2) {
-    	hs1527decoder.onDmaComplete();
+        // передаем фронт в объект декодера
+        hs1527decoder.processFront(timestamp);
     }
 }
 /* USER CODE END 4 */

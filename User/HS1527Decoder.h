@@ -8,30 +8,37 @@
 #pragma once
 #include "main.h"
 #include <cstdint>
-#include <cstring>
-
-#define IC_DMA_BUF_LEN 512   // длина буфера таймстемпов
 
 class HS1527Decoder {
 public:
-	//HS1527Decoder(){}
-    HS1527Decoder(TIM_HandleTypeDef* tim, UART_HandleTypeDef* uart);
+    HS1527Decoder(TIM_HandleTypeDef* tim_, UART_HandleTypeDef* uart_);
 
-    void begin();                   // старт таймера + DMA
-    void onDmaHalfComplete();       // callback DMA half complete
-    void onDmaComplete();           // callback DMA full complete
+    void begin();                       // запуск Input Capture
+    void processFront(uint32_t timestamp); // вызывается из ISR Input Capture
+
+    uint32_t lastDelta;
 
 private:
-    enum State { IDLE, RECEIVING } state;
-
     TIM_HandleTypeDef* htim;
     UART_HandleTypeDef* huart;
 
-    volatile uint32_t timestamps[IC_DMA_BUF_LEN];
-    size_t bufIdx;
-    size_t lastProcIdx;
+    static constexpr size_t PACKET_SIZE = 25;
+    static constexpr uint32_t PAUSE_THRESHOLD = 6800; // пауза между пачками (~7 мс)
+    static constexpr uint32_t PAUSE_THRESHOLD_big = 7300;
+    static constexpr uint32_t SHORT_MIN = 180;  // короткий импульс ~216 мкс
+    static constexpr uint32_t SHORT_MAX = 250;
+    static constexpr uint32_t LONG_MIN  = 600;  // длинный импульс ~680 мкс
+    static constexpr uint32_t LONG_MAX  = 750;
 
-    void processBuffer(size_t start, size_t end);
-    void reportCode(uint32_t code);
-    inline uint32_t diffTicks(uint32_t a, uint32_t b);
+    uint32_t currentPacket[PACKET_SIZE];
+    size_t packetIndex;
+    uint32_t lastTimestamp;
+
+    uint8_t lastButtonCode;
+    uint8_t repeatCount;
+
+    void analyzePacket();      // превращает timestamps в биты и определяет кнопку
+    void reportCode(uint8_t code);
 };
+
+
